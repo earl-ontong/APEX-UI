@@ -39,11 +39,14 @@ The Apex workspace opens on **Files**, with the assistant in a separate tab. In 
 browser, the requested folder names are shown for orientation, but the browser cannot
 open folders on your laptop. Use the installed Windows desktop app to access them.
 
-The assistant uses OpenAI's `gpt-4.1-mini` through a server-side route. Set
+Browser chat is available only during local development (`npm run dev`). Set
 `OPENAI_API_KEY` in `.env.local` (never expose the key in browser code), then restart
-the dev server. The overview shows current weather for Paarl, South Africa. Browser
-replies use speech synthesis when supported; the Windows desktop app can use either
-an installed Windows voice or ElevenLabs.
+the dev server. In production, the browser chat API rejects requests before reading
+the key, so it cannot act as a public OpenAI proxy. Use the Windows desktop app for
+production chat; it sends requests directly to OpenAI using the key saved in its
+encrypted Settings storage. The overview shows current weather for Paarl, South
+Africa. Browser replies use speech synthesis when supported; the Windows desktop app
+can use either an installed Windows voice or ElevenLabs.
 
 The file picker can open text files you choose. Their contents are sent to OpenAI
 only when you send a message while the file is attached. You can edit the selected

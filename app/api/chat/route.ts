@@ -8,6 +8,13 @@ const MAX_CONVERSATION_LENGTH = 60_000;
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
 export async function POST(request: Request) {
+  if (process.env.NODE_ENV !== "development") {
+    return NextResponse.json(
+      { error: "Browser chat is available only in local development. Use the Windows desktop app for production chat." },
+      { status: 403 },
+    );
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json(
